@@ -33,7 +33,7 @@ class ViewController: UIViewController {
             return arrValue[0]
         } else {
             flagCommaPressed = true
-            return value
+            return String(format: "%.4g", Double(value)!)
         }
     }
 
@@ -62,6 +62,10 @@ class ViewController: UIViewController {
     @IBAction func pressedEqualitySignButton(_ sender: UIButton) {
         if !flag {
             secondOperand = Double(resultLabel.text!)!
+        } else if sign == "+" || sign == "-" {
+            secondOperand = 0
+        } else {
+            secondOperand = 1
         }
         
         flagCommaPressed = false
@@ -84,6 +88,9 @@ class ViewController: UIViewController {
         default:
             break
         }
+        
+        firstOperand = 0
+        sign = ""
     }
     
     @IBAction func pressedClearButton(_ sender: UIButton) {
@@ -96,16 +103,40 @@ class ViewController: UIViewController {
     }
     
     @IBAction func pressedPlusMinusButton(_ sender: UIButton) {
-        let newValue = -Double(resultLabel.text!)!
-        resultLabel.text = doubleOrInt(value: String(newValue))
+        if !flag {
+            let newValue = -Double(resultLabel.text!)!
+            resultLabel.text = doubleOrInt(value: String(newValue))
+        } else {
+            resultLabel.text = "-"
+            flag = false
+        }
     }
     
     @IBAction func pressedPersentButton(_ sender: UIButton) {
         if firstOperand != 0 {
-            secondOperand = firstOperand * Double(resultLabel.text!)! / 100
+            switch sign {
+            case "÷":
+                if resultLabel.text! != "0" {
+                    let res = firstOperand / (Double(resultLabel.text!)! / 100)
+                    resultLabel.text = doubleOrInt(value: String(res))
+                }
+            case "×":
+                let res = firstOperand * (Double(resultLabel.text!)! / 100)
+                resultLabel.text = doubleOrInt(value: String(res))
+            case "-":
+                let res = firstOperand - firstOperand * Double(resultLabel.text!)! / 100
+                resultLabel.text = doubleOrInt(value: String(res))
+            case "+":
+                let res = firstOperand + firstOperand * Double(resultLabel.text!)! / 100
+                resultLabel.text = doubleOrInt(value: String(res))
+            default:
+                break
+            }
+            firstOperand = 0
+            sign = "0"
         } else {
-            let res = String(Double(resultLabel.text!)! / 100)
-            resultLabel.text = doubleOrInt(value: res)
+            let res = Double(resultLabel.text!)! / 100
+            resultLabel.text = doubleOrInt(value: String(res))
         }
         
     }
@@ -113,6 +144,7 @@ class ViewController: UIViewController {
     @IBAction func pressedCommaButton(_ sender: UIButton) {
         if !flagCommaPressed && flag {
             resultLabel.text = "0."
+            flag = false
             flagCommaPressed = true
         } else if !flagCommaPressed && !flag {
             resultLabel.text = resultLabel.text! + "."
