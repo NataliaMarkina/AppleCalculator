@@ -120,5 +120,24 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func swipeFunction(_ sender: UISwipeGestureRecognizer) {
+        if resultLabel.text!.characters.count > 1 {
+            resultLabel.text = String(resultLabel.text!.dropLast())
+        } else {
+            resultLabel.text = "0"
+            firstOperand = 0
+            secondOperand = 0
+            sign = ""
+            flag = true
+            flagCommaPressed = false
+        }
+    }
+    
+    @IBAction func longPressFunction(_ sender: UILongPressGestureRecognizer) {
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Скопировать", style: .default, handler: {_ in UIPasteboard.general.string = self.resultLabel.text!})
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
 }
 

@@ -283,12 +283,18 @@
                                     <constraint firstItem="qwL-m8-Scx" firstAttribute="leading" secondItem="9ja-Rg-7rU" secondAttribute="leading" id="vQa-rs-VSm"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="m9C-lv-A1h">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="m9C-lv-A1h">
                                 <rect key="frame" x="0.0" y="44" width="375" height="120"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="100"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="dFz-od-y6p" appends="YES" id="zLd-gO-yhR"/>
+                                    <outletCollection property="gestureRecognizers" destination="E9s-XL-Bb3" appends="YES" id="hIu-zi-FwH"/>
+                                    <outletCollection property="gestureRecognizers" destination="7py-vT-pI9" appends="YES" id="gVx-Xd-Mgy"/>
+                                </connections>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -308,6 +314,21 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="dFz-od-y6p">
+                    <connections>
+                        <action selector="swipeFunction:" destination="BYZ-38-t0r" id="oV7-Mw-clS"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="E9s-XL-Bb3">
+                    <connections>
+                        <action selector="swipeFunction:" destination="BYZ-38-t0r" id="vKf-xi-WMy"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="7py-vT-pI9">
+                    <connections>
+                        <action selector="longPressFunction:" destination="BYZ-38-t0r" id="iwJ-VY-dFh"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
         </scene>
