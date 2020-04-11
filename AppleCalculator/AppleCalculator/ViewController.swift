@@ -10,6 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
+//    Немного по стайлу файлов принято чтобы шло так так:
+//    Переменные и и views's
+//    Жизненный цикл котроллера/вьюхи
+//    Функции и действия класса
+
+//    Я перенес примерно как надо
+
+    var flag = true
+    var firstOperand : Double = 0
+    var secondOperand : Double = 0
+    var sign = ""
+    var flagCommaPressed = false
+
+    @IBOutlet weak var resultLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -19,13 +34,7 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    var flag = true
-    var firstOperand : Double = 0
-    var secondOperand : Double = 0
-    var sign = ""
-    var flagCommaPressed = false
-    
+
     func doubleOrInt(value: String) -> String {
         let arrValue = value.components(separatedBy: ".")
         
@@ -37,19 +46,15 @@ class ViewController: UIViewController {
         }
     }
 
-    @IBOutlet weak var resultLabel: UILabel!
-    
     @IBAction func pressedNumberButton(_ sender: UIButton) {
-        
         if flag {
             resultLabel.text = sender.currentTitle!
             flag = false
         } else {
-            if (resultLabel.text?.characters.count)! < 9 {
+            if (resultLabel.text?.characters.count)! < 9 { //Надо исправить 'characters' is deprecated: Please use String directly; Можно использовать text.count
                 resultLabel.text = resultLabel.text! + sender.currentTitle!
             }
         }
-        
     }
     
     @IBAction func pressedSignButton(_ sender: UIButton) {
@@ -61,7 +66,7 @@ class ViewController: UIViewController {
     
     @IBAction func pressedEqualitySignButton(_ sender: UIButton) {
         if !flag {
-            secondOperand = Double(resultLabel.text!)!
+            secondOperand = Double(resultLabel.text!)! //Force unwrap'ов лучше избегать в принципе. Чисто за привычку взять; Я бы тут использовал такую вещь: Double(resultLabel.text!) ?? 0.0
         } else if sign == "+" || sign == "-" {
             secondOperand = 0
         } else {
@@ -156,7 +161,7 @@ class ViewController: UIViewController {
         if resultLabel.text!.characters.count > 1 {
             resultLabel.text = String(resultLabel.text!.dropLast())
         } else {
-            resultLabel.text = "0"
+            resultLabel.text = "0" // Вся концепция флагов не очень импонирует. А если мы еще будем добавлять разилчные условия и флаги будут дальше разрастаться? Это ремакрка такая, но раз работает, то ок;
             firstOperand = 0
             secondOperand = 0
             sign = ""
@@ -172,4 +177,3 @@ class ViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 }
-
